@@ -1,0 +1,8 @@
+{
+  "name": "messwerte-v3",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lokale Messwerterfassung mit Bildern, Dokumenten und ZIP-Austausch",
+  "scripts": { "test": "node --test *.test.cjs" },
+  "engines": { "node": ">=22" }
+}

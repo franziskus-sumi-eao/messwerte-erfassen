@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17634b">
+  <meta name="description" content="Messwerte und Dokumente lokal erfassen.">
+  <title>Messwerte / V3</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <script src="vendor/jszip.min.js" defer></script>
+  <script src="data.js" defer></script>
+  <script src="attachments.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><img src="icon.svg" width="36" height="36" alt="">Messwerte <span>V3</span></a>
+    <span id="network" class="network">Lokal</span>
+  </header>
+  <main>
+    <div class="page-heading"><div><p class="eyebrow">MESSPROTOKOLL</p><h1>Messwerte</h1></div></div>
+    <p id="notice" role="status" aria-live="polite" hidden></p>
+    <div class="workspace">
+      <section class="entry-panel" aria-labelledby="entry-heading">
+        <div class="section-heading"><span class="section-number">01</span><h2 id="entry-heading">Neuer Messwert</h2></div>
+        <form id="entry-form">
+          <label>Bezeichnung<input id="title" maxlength="255" required placeholder="Temperatur K&uuml;hlkreislauf"></label>
+          <div class="pair"><label>Messwert<input id="value" type="number" step="any" required placeholder="0,00"></label><label>Einheit<input id="unit" maxlength="255" placeholder="&deg;C" list="units"></label></div>
+          <datalist id="units"><option value="&deg;C"><option value="bar"><option value="V"><option value="A"><option value="mm"><option value="kg"><option value="%"></datalist>
+          <label>Messstelle<input id="location" maxlength="255" placeholder="Anlage / Ort"></label>
+          <label>Erfasser<input id="author" maxlength="255" required placeholder="Name oder Ger&auml;tekennung" autocomplete="nickname"></label>
+          <label>Notiz <span class="optional">optional</span><textarea id="note" maxlength="2000" rows="3"></textarea></label>
+          <button id="save" type="submit" class="primary">Lokal speichern</button>
+        </form>
+      </section>
+      <section class="records-panel" aria-labelledby="records-heading">
+        <div class="section-heading"><span class="section-number">02</span><h2 id="records-heading">Datenbestand</h2><span id="count" class="count">0</span></div>
+        <div class="records-toolbar"><label class="search-label"><span class="sr-only">Messwerte durchsuchen</span><input id="search" type="search" placeholder="Datenbestand durchsuchen" autocomplete="off"></label><button id="export" type="button">ZIP exportieren</button><button id="import" type="button">Importieren</button><input id="import-file" class="sr-only" type="file" accept=".zip,application/zip,.json,application/json" tabindex="-1"></div>
+        <div class="table-scroll"><table><thead><tr><th scope="col">Messung / Messstelle</th><th scope="col">Wert</th><th scope="col">Erfasst</th></tr></thead><tbody id="records"></tbody></table><div id="empty" class="empty"><img src="icon.svg" width="52" height="52" alt=""><h3>Noch keine Messwerte</h3><p>0 Eintr&auml;ge im lokalen Datenbestand</p></div></div>
+        <div class="records-footer"><span id="visible-count">0 Eintr&auml;ge</span><button id="more" type="button" hidden>Weitere anzeigen</button></div>
+      </section>
+    </div>
+    <footer class="local-note">Messwerte und Anh&auml;nge bleiben auf diesem Ger&auml;t. F&uuml;r die &Uuml;bertragung ZIP exportieren.</footer>
+  </main>
+  <dialog id="attachment-dialog" aria-labelledby="attachment-heading">
+    <div class="dialog-heading"><div><p class="eyebrow">MESSWERT-ANH&Auml;NGE</p><h2 id="attachment-heading">Dateien</h2></div><button id="attachment-close" type="button">Schlie&szlig;en</button></div>
+    <p id="attachment-entry-title" class="dialog-entry-title"></p>
+    <ul id="attachment-list" class="attachment-list"></ul>
+    <form id="attachment-form">
+      <label>Bilder und Dokumente<input id="attachment-files" type="file" multiple accept="image/jpeg,image/png,image/gif,image/webp,application/pdf,text/plain,text/csv,application/rtf,.jpg,.jpeg,.png,.gif,.webp,.pdf,.txt,.csv,.rtf,.doc,.docx,.xls,.xlsx,.odt,.ods"></label>
+      <p class="attachment-hint">JPG, PNG, GIF, WebP, PDF sowie Office- und Textdateien. Maximal 10 MB je Datei.</p>
+      <button id="attachment-add" type="submit" class="primary">Anh&auml;nge hinzuf&uuml;gen</button>
+    </form>
+  </dialog>
+</body>
+</html>
